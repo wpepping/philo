@@ -6,11 +6,11 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:58:39 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/22 17:35:32 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:58:50 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 long	ft_atol(const char *str)
 {

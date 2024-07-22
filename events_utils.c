@@ -6,11 +6,11 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:55:32 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/22 17:19:30 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:58:33 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "philo.h"
 
 void	init_philo(t_philosopher *philo, int i, t_data *data)
 {
