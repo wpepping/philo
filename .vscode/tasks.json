@@ -10,7 +10,8 @@
 				"-Wextra",
 				"-Wall",
                 "-g",
-                "${file}",
+                "*.c",
+				"libft/*.c",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
