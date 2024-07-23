@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   events_utils.c                                     :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:55:32 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/22 20:28:27 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:40:47 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,3 @@ void	putlog(long ctime, t_philosopher *philo, char *state)
 	}
 	pthread_mutex_unlock(&philo->data->mutex_locks[LOCK_PRINT]);
 }
-

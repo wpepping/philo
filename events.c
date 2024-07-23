@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:41:48 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/22 21:21:35 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:56:00 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	start_think(t_philosopher *philo)
 		putlog(philo->event_end, philo, "is thinking");
 	philo->state = THINKING;
 	philo->event_end = think_end;
-	usleep(max(think_end - currtime(), 0) * 1000);
+	usleep(max((think_end - currtime() * 1000), 1));
 }
 
 static void	start_sleep(t_philosopher *philo)

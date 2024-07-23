@@ -6,12 +6,12 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:32:33 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/22 20:23:38 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/23 18:47:37 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include <pthread.h>
 # include <stdlib.h>
@@ -20,20 +20,12 @@
 # include <sys/time.h>
 # include "libft/libft.h"
 
-# define IDLE 0
-# define THINKING 1
-# define EATING 2
-# define SLEEPING 3
-# define DEAD 4
-
-# define AVAILABLE 0
-# define TAKEN 1
+enum philo_states {IDLE, THINKING, EATING, SLEEPING, DEAD};
+enum fork_states{AVAILABLE, TAKEN};
+enum mutex_locks {LOCK_FORKS, LOCK_PRINT, LOCK_DIE, LOCK_EAT};
 
 # define NR_OF_LOCKS 4
-# define LOCK_FORKS 0
-# define LOCK_PRINT 1
-# define LOCK_DIE 2
-# define LOCK_EAT 3
+
 
 typedef struct timeval	t_timeval;
 
@@ -49,6 +41,7 @@ typedef struct s_data
 	int				*forks;
 	void			*philos;
 	pthread_mutex_t	*mutex_locks;
+	pthread_mutex_t	*fork_locks;
 }	t_data;
 
 typedef struct s_philosopher

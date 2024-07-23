@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 20:28:35 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/22 21:19:37 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:40:57 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ static int	check_forks(t_philosopher *philo)
 		left = philo->pos - 1;
 	if (forks[left] == AVAILABLE && forks[philo->pos] == AVAILABLE)
 	{
-		//putlog(philo->event_end, philo, "has taken a fork");
+		putlog(philo->event_end, philo, "has taken a fork");
 		forks[left] = TAKEN;
-		//putlog(philo->event_end, philo, "has taken a fork");
+		putlog(philo->event_end, philo, "has taken a fork");
 		forks[philo->pos] = TAKEN;
 		result = 1;
 	}

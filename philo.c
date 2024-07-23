@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:31:57 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/23 13:37:24 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/23 13:42:06 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,20 @@ static void	*init_events(void *v)
 
 static int	validate_input(int argc, char **argv, t_data *data)
 {
-	data->tme = -1; // Read in from arguments
-	if (argc == 5 && isint(argv[1], &data->nop) && isint(argv[2], &data->ttd)
-		&& isint(argv[3], &data->tte) && isint(argv[4], &data->tts))
-		return (1);
+	data->tme = -1;
+	if (argc == 5)
+	{
+		if (isint(argv[1], &data->nop) && isint(argv[2], &data->ttd)
+			&& isint(argv[3], &data->tte) && isint(argv[4], &data->tts))
+			return (1);
+	}
+	else if (argc == 6)
+	{
+		if (isint(argv[1], &data->nop) && isint(argv[2], &data->ttd)
+			&& isint(argv[3], &data->tte) && isint(argv[4], &data->tts)
+			&& isint(argv[5], &data->tme))
+			return (1);
+	}
 	return (0);
 }
 
