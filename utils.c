@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:58:39 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/22 17:58:50 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/29 14:29:43 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	isint(char *str, int *i)
 	return (1);
 }
 
-int	max(int a, int b)
+long	max(long a, long b)
 {
 	if (b > a)
 		return (b);

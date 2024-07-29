@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:31:57 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/23 13:42:06 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/29 12:59:08 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	init(int argc, char **argv, t_data *data, t_philosopher **philos)
 	*philos = malloc(data->nop * sizeof(t_philosopher));
 	data->philos = *philos;
 	data->forks = init_forks(data->nop);
+	data->forks_queue = init_forks(data->nop);
 	data->starttime = currtime();
 	data->end = 0;
 	return (0);
