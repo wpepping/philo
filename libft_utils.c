@@ -1,16 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   libft_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/18 12:36:57 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/19 13:11:04 by wpepping         ###   ########.fr       */
+/*   Created: 2024/07/29 18:20:06 by wpepping          #+#    #+#             */
+/*   Updated: 2024/07/29 18:21:14 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i++] != '\0')
+		;
+	return (i - 1);
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	while (*s != '\0')
+		write(fd, s++, 1);
+	write(fd, "\n", 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	while (*s != '\0')
+		write(fd, s++, 1);
+}
 
 void	ft_putnbr_fd(long n, int fd)
 {

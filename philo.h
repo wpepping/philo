@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:32:33 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/29 14:29:59 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/31 19:19:41 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,13 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <sys/time.h>
-# include "libft/libft.h"
 
-enum e_philo_states {IDLE, THINKING, EATING, SLEEPING, DEAD};
-enum e_mutex_locks {LOCK_FORKS, LOCK_PRINT, LOCK_DIE, LOCK_EAT};
+enum e_mutex_locks {lock_forks, lock_print, lock_end};
 
-# define AVAILABLE 0
-# define TAKEN 1
 # define NR_OF_LOCKS 4
 
-typedef struct timeval	t_timeval;
+typedef struct timeval			t_timeval;
+typedef struct s_philosopher	t_philosopher;
 
 typedef struct s_data
 {
@@ -38,36 +35,41 @@ typedef struct s_data
 	int				tme;
 	int				end;
 	long			starttime;
-	int				*forks;
-	int				*forks_queue;
-	void			*philos;
+	t_philosopher	*philos;
 	pthread_mutex_t	*mutex_locks;
 	pthread_mutex_t	*fork_locks;
+	pthread_mutex_t	*meal_locks;
 }	t_data;
 
 typedef struct s_philosopher
 {
 	int				pos;
-	int				state;
 	int				times_eaten;
-	long			event_end;
-	long			last_meal_end;
+	long			last_meal_start;
 	t_data			*data;
 	pthread_t		thread_id;
 }	t_philosopher;
 
-void	try_eat(t_philosopher *philo);
-long	tt_forks(t_philosopher *philo);
-int		forks_available(t_philosopher *philo);
+// Libft functions
+int		ft_isdigit(int c);
+size_t	ft_strlen(const char *s);
+void	ft_putendl_fd(char *s, int fd);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(long n, int fd);
+
+// Other functions
 long	currtime(void);
-void	init_philo(t_philosopher *philo, int i, t_data *data);
-int		*init_forks(int n);
+void	init_philos(t_philosopher *philos, t_data *data);
 int		isint(char *str, int *i);
 long	ft_atol(const char *nptr);
-int		min(int a, int b);
-long	max(long a, long b);
-void	putlog(long ctime, t_philosopher *philo, char *state);
-int		mutex_destroy(t_data *data, int n);
+void	putlog(t_philosopher *philo, char *state);
 int		mutex_init(t_data *data);
+int		mutex_destroy(t_data *data, int n, int forks_done);
+void	*init_events(void *v);
+int		is_end(t_data *data);
+void	set_end(t_data *data);
+long	get_meal_start(t_philosopher *philo);
+void	set_meal_start(t_philosopher *philo, long ctime);
+void	ft_usleep(int milliseconds);
 
 #endif

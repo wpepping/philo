@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:58:39 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/29 14:29:43 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/31 21:09:06 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ long	currtime(void)
 	return (result.tv_sec * 1000 + result.tv_usec / 1000);
 }
 
+void	ft_usleep(int ms)
+{
+	long	time;
+
+	time = currtime();
+	while (currtime() < time + ms)
+		usleep(100);
+}
+
 int	isint(char *str, int *i)
 {
 	long	l;
@@ -62,23 +71,23 @@ int	isint(char *str, int *i)
 		str++;
 	}
 	l = ft_atol(p);
-	if (l > 2147483 || l < 0)
+	if (l > 2147483 || l <= 0)
 		return (0);
 	if (i != NULL)
 		*i = l;
 	return (1);
 }
 
-long	max(long a, long b)
+void	putlog(t_philosopher *philo, char *state)
 {
-	if (b > a)
-		return (b);
-	return (a);
-}
-
-int	min(int a, int b)
-{
-	if (b < a)
-		return (b);
-	return (a);
+	pthread_mutex_lock(&philo->data->mutex_locks[lock_print]);
+	if (!is_end(philo->data))
+	{
+		ft_putnbr_fd(currtime() - philo->data->starttime, STDOUT_FILENO);
+		ft_putstr_fd(" philosopher ", STDOUT_FILENO);
+		ft_putnbr_fd(philo->pos + 1, STDOUT_FILENO);
+		ft_putstr_fd(" ", STDOUT_FILENO);
+		ft_putendl_fd(state, STDOUT_FILENO);
+	}
+	pthread_mutex_unlock(&philo->data->mutex_locks[lock_print]);
 }

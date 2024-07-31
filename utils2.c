@@ -6,44 +6,57 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 20:55:32 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/29 14:30:53 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:18:13 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_philo(t_philosopher *philo, int i, t_data *data)
+int	is_end(t_data *data)
 {
-	philo->pos = i;
-	philo->state = IDLE;
-	philo->times_eaten = 0;
-	philo->event_end = data->starttime;
-	philo->last_meal_end = data->starttime;
-	philo->data = data;
-}
+	int	result;
 
-int	*init_forks(int n)
-{
-	int	*result;
-	int	i;
-
-	result = malloc(n * sizeof(int));
-	i = 0;
-	while (i < n)
-		result[i++] = AVAILABLE;
+	pthread_mutex_lock(&data->mutex_locks[lock_end]);
+	result = data->end;
+	pthread_mutex_unlock(&data->mutex_locks[lock_end]);
 	return (result);
 }
 
-void	putlog(long ctime, t_philosopher *philo, char *state)
+void	set_end(t_data *data)
 {
-	pthread_mutex_lock(&philo->data->mutex_locks[LOCK_PRINT]);
-	if (!philo->data->end)
+	pthread_mutex_lock(&data->mutex_locks[lock_end]);
+	data->end = 1;
+	pthread_mutex_unlock(&data->mutex_locks[lock_end]);
+}
+
+long	get_meal_start(t_philosopher *philo)
+{
+	long	result;
+
+	pthread_mutex_lock(&philo->data->meal_locks[philo->pos]);
+	result = philo->last_meal_start;
+	pthread_mutex_unlock(&philo->data->meal_locks[philo->pos]);
+	return (result);
+}
+
+void	set_meal_start(t_philosopher *philo, long ctime)
+{
+	pthread_mutex_lock(&philo->data->meal_locks[philo->pos]);
+	philo->last_meal_start = ctime;
+	pthread_mutex_unlock(&philo->data->meal_locks[philo->pos]);
+}
+
+void	init_philos(t_philosopher *philos, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nop)
 	{
-		ft_putnbr_fd(ctime - philo->data->starttime, STDOUT_FILENO);
-		ft_putstr_fd(" philosopher ", STDOUT_FILENO);
-		ft_putnbr_fd(philo->pos + 1, STDOUT_FILENO);
-		ft_putstr_fd(" ", STDOUT_FILENO);
-		ft_putendl_fd(state, STDOUT_FILENO);
+		philos[i].pos = i;
+		philos[i].times_eaten = 0;
+		philos[i].last_meal_start = data->starttime;
+		philos[i].data = data;
+		i++;
 	}
-	pthread_mutex_unlock(&philo->data->mutex_locks[LOCK_PRINT]);
 }
