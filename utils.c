@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:58:39 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/31 21:09:06 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:36:38 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	putlog(t_philosopher *philo, char *state)
 	if (!is_end(philo->data))
 	{
 		ft_putnbr_fd(currtime() - philo->data->starttime, STDOUT_FILENO);
-		ft_putstr_fd(" philosopher ", STDOUT_FILENO);
+		ft_putstr_fd(" ", STDOUT_FILENO);
 		ft_putnbr_fd(philo->pos + 1, STDOUT_FILENO);
 		ft_putstr_fd(" ", STDOUT_FILENO);
 		ft_putendl_fd(state, STDOUT_FILENO);

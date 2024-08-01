@@ -6,11 +6,18 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:31:57 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/31 21:01:52 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:27:55 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	error_handl(char *message, t_data *data)
+{
+	ft_putendl_fd(message, STDERR_FILENO);
+	data->end = 1;
+	return (1);
+}
 
 static int	validate_input(int argc, char **argv, t_data *data)
 {
@@ -29,13 +36,6 @@ static int	validate_input(int argc, char **argv, t_data *data)
 			return (1);
 	}
 	return (0);
-}
-
-static int	error_handl(char *message, t_data *data)
-{
-	ft_putendl_fd(message, STDERR_FILENO);
-	data->end = 1;
-	return (1);
 }
 
 static int	init(int argc, char **argv, t_data *data, t_philosopher **philos)
@@ -77,26 +77,15 @@ int	main(int argc, char **argv)
 {
 	t_data			data;
 	t_philosopher	*philos;
-	int				i;
 	int				result;
 
 	if (init(argc, argv, &data, &philos))
 		return (1);
 	result = 0;
 	init_philos(philos, &data);
-	i = -1;
-	while (++i < data.nop)
-	{
-		if (pthread_create(&philos[i].thread_id, NULL, init_events, &philos[i]))
-			result = error_handl("Thread creation failed.\n", &data);
-	}
+	init_threads(philos, &data);
 	check_deaths(philos, &data);
-	i = -1;
-	while (++i < data.nop)
-	{
-		if (pthread_join(philos[i].thread_id, NULL))
-			result = error_handl("Thread join failed.\n", &data);
-	}
+	join_threads(philos, &data);
 	mutex_destroy(&data, data.nop, 2);
 	free(philos);
 	return (result);

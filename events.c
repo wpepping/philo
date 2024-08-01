@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:41:48 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/31 21:04:36 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:38:07 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,6 @@ static void	start_eat(t_philosopher *philo)
 	int	second;
 
 	get_fork_order(philo, &first, &second);
-	pthread_mutex_lock(&philo->data->mutex_locks[lock_print]);
-	ft_putstr_fd("philo ", 1);
-	ft_putnbr_fd(philo->pos + 1, 1);
-	ft_putstr_fd(" first fork ", 1);
-	ft_putnbr_fd(first, 1);
-	ft_putstr_fd(" second ", 1);
-	ft_putnbr_fd(second, 1);
-	ft_putstr_fd("\n", 1);
-	pthread_mutex_unlock(&philo->data->mutex_locks[lock_print]);
 	pthread_mutex_lock(&philo->data->fork_locks[first]);
 	putlog(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->data->fork_locks[second]);

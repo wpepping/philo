@@ -1,4 +1,4 @@
-SRCS = philo.c events.c mutex.c utils.c utils2.c libft_utils.c
+SRCS = philo.c events.c mutex.c threads.c utils.c utils2.c libft_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:32:33 by wpepping          #+#    #+#             */
-/*   Updated: 2024/07/31 19:19:41 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:27:54 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ void	set_end(t_data *data);
 long	get_meal_start(t_philosopher *philo);
 void	set_meal_start(t_philosopher *philo, long ctime);
 void	ft_usleep(int milliseconds);
+void	init_threads(t_philosopher *philos, t_data *data);
+void	join_threads(t_philosopher *philos, t_data *data);
+int		error_handl(char *message, t_data *data);
 
 #endif
