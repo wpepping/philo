@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:32:33 by wpepping          #+#    #+#             */
-/*   Updated: 2024/08/01 13:27:54 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:52:22 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(long n, int fd);
 
 // Other functions
-long	currtime(void);
 void	init_philos(t_philosopher *philos, t_data *data);
+void	check_times_eaten(t_data *data);
+long	currtime(void);
 int		isint(char *str, int *i);
 long	ft_atol(const char *nptr);
 void	putlog(t_philosopher *philo, char *state);
@@ -70,9 +71,11 @@ int		is_end(t_data *data);
 void	set_end(t_data *data);
 long	get_meal_start(t_philosopher *philo);
 void	set_meal_start(t_philosopher *philo, long ctime);
+int		get_times_eaten(t_philosopher *philo);
+void	set_times_eaten(t_philosopher *philo);
 void	ft_usleep(int milliseconds);
-void	init_threads(t_philosopher *philos, t_data *data);
-void	join_threads(t_philosopher *philos, t_data *data);
+int		init_threads(t_philosopher *philos, t_data *data);
+int		join_threads(t_philosopher *philos, t_data *data);
 int		error_handl(char *message, t_data *data);
 
 #endif

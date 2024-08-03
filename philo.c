@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 14:31:57 by wpepping          #+#    #+#             */
-/*   Updated: 2024/08/01 13:27:55 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:54:05 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	init(int argc, char **argv, t_data *data, t_philosopher **philos)
 		return (error_handl("Memory allocation failed.\n", data));
 	data->philos = *philos;
 	data->end = 0;
-	data->starttime = currtime();
 	return (0);
 }
 
@@ -83,9 +82,10 @@ int	main(int argc, char **argv)
 		return (1);
 	result = 0;
 	init_philos(philos, &data);
-	init_threads(philos, &data);
+	data.starttime = currtime();
+	result = init_threads(philos, &data);
 	check_deaths(philos, &data);
-	join_threads(philos, &data);
+	result = join_threads(philos, &data);
 	mutex_destroy(&data, data.nop, 2);
 	free(philos);
 	return (result);

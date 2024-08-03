@@ -6,7 +6,7 @@
 /*   By: wpepping <wpepping@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 19:41:48 by wpepping          #+#    #+#             */
-/*   Updated: 2024/08/01 13:38:07 by wpepping         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:51:48 by wpepping         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ static void	start_think(t_philosopher *philo)
 static void	start_sleep(t_philosopher *philo)
 {
 	putlog(philo, "is sleeping");
+	set_times_eaten(philo);
+	if (philo->data->tme != -1)
+		check_times_eaten(philo->data);
 	ft_usleep(philo->data->tts);
 }
 
@@ -57,9 +60,6 @@ static void	start_eat(t_philosopher *philo)
 	ft_usleep(philo->data->tte);
 	pthread_mutex_unlock(&philo->data->fork_locks[second]);
 	pthread_mutex_unlock(&philo->data->fork_locks[first]);
-	philo->times_eaten++;
-	if (philo->data->tme != -1 && philo->times_eaten >= philo->data->tme)
-		set_end(philo->data);
 }
 
 void	*init_events(void *v)
